@@ -1,0 +1,67 @@
+{% extends 'cadastro/base.html'%}
+
+{% load static %}
+<!-- Carrega o plugin do boostrap 4 -->
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg">
+            <h3>{{ titulo }}</h3>
+
+            {% if botao == 'Excluir' %}
+
+            <h4>{{ object }}</h4>
+
+            {% endif %}
+
+        </div>
+    </div>            
+    <div class="row">
+        <div class="col-lg-5">
+ 
+            <form method="post">
+                <!-- Todo formulario tem que ter essa validação -->
+                {% csrf_token %}
+
+                {{ form|crispy }}
+
+                <button type="submit" class="btn {{ classeBotao }}">
+                    {{ botao }}
+                </button>
+                <a href="{% url 'index' %}" class="btn btn-primary">
+                    Voltar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block rodape %}
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var SPMaskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        spOptions = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(SPMaskBehavior.apply({}, arguments), options);
+            }
+        };
+
+        $('input[id*=telefone_').mask(SPMaskBehavior, spOptions);
+        $('#id_nascimento').mask('00/00/0000');
+        $('#id_cpf').mask('000.000.000-00', {reverse: true});
+    });
+    
+  </script>
+  {% endblock %}
