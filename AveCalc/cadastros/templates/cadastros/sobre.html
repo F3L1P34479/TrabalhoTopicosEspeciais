@@ -1,0 +1,49 @@
+{% extends 'trabalho/padrao.html' %}
+{% load static %}
+{% block header %}
+<!-- Header -->
+<header class="masthead">
+  <div class="container d-flex h-100 align-items-center">
+    <div class="mx-auto text-center">
+      <h1 class="mx-auto my-0 text-uppercase">Sobre</h1>
+    </div>
+  </div>
+</header>
+{% endblock %}
+{% block sobre %}
+<style media="screen">
+  .foto{
+    width: 940px;
+    height: 640px;
+    padding: 5px;
+    text-align: center;
+  }
+</style>
+<div class="container">
+  <div class="row ">
+    <div class="col-md">
+      <img class="foto" src="{% static 'img/Diagrama de Classe TCC.png' %}" alt="">
+    </div>
+    <div class="col-md">
+      <h5 class="font-weight-bold">Descrição</h5>
+      <p class="text-justify">
+        Sistema para gerenciamento das atividades relacionadas a criação de aves de corte.
+      </p>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block projetos %}
+
+{% endblock %}
+
+{% block cadastrar %}
+
+{% endblock %}
+
+{% block sessao %}
+
+{% endblock %}
