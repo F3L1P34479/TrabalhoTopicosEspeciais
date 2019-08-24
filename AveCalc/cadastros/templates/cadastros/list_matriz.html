@@ -1,0 +1,79 @@
+{% extends 'cadastros/base.html'%}
+
+{% load static %}
+<!-- Carrega o plugin do boostrap 4 -->
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+<div class="container py-5">
+
+    <div class="row mt-5">
+        <div class="col-lg">
+            <h3 class="border-bottom">
+                Lista de Matrizes
+            </h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Idade</th>
+                        <th>Lote</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for matriz in object_list %}
+                        <tr>
+                            <td>{{matriz.idade}}</td>
+                            <td>{{matriz.loteMatriz}}</td>
+                            <td>
+                                <a href="{% url 'editar-matriz' matriz.pk %}" class="btn btn-outline-warning btn-sm">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a href="{% url 'excluir-matriz' matriz.pk %}" class="btn btn-outline-danger btn-sm">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3">Nenhuma cidade cadastrada!</td>
+                            </tr>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block rodape %}
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var SPMaskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        spOptions = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(SPMaskBehavior.apply({}, arguments), options);
+            }
+        };
+
+        $('input[id*=telefone_').mask(SPMaskBehavior, spOptions);
+        $('#id_nascimento').mask('00/00/0000');
+        $('#id_cpf').mask('000.000.000-00', {reverse: true});
+    });
+    
+  </script>
+  {% endblock %}

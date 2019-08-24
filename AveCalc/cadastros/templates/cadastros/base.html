@@ -79,13 +79,15 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Aviário</a>
-            <a class="collapse-item" href="cards.html">Granjeiro</a>
-            <a class="collapse-item" href="buttons.html">Técnico</a>
-            <a class="collapse-item" href="cards.html">Proprietário</a>
-            <a class="collapse-item" href="buttons.html">Ração</a>
-            <a class="collapse-item" href="cards.html">Lote</a>
-            <a class="collapse-item" href="buttons.html">Matriz</a>
+            <a class="collapse-item" href="{% url 'cadastrar-estado' %}">Estado</a>
+            <a class="collapse-item" href="{% url 'cadastrar-cidade' %}">Cidade</a>
+            <a class="collapse-item" href="{% url 'cadastrar-aviario' %}">Aviário</a>
+            <a class="collapse-item" href="{% url 'cadastrar-pessoa' %}">Granjeiro</a>
+            <a class="collapse-item" href="{% url 'cadastrar-pessoa' %}">Técnico</a>
+            <a class="collapse-item" href="{% url 'cadastrar-pessoa' %}">Proprietário</a>
+            <a class="collapse-item" href="{% url 'cadastrar-racao' %}">Ração</a>
+            <a class="collapse-item" href="">Lote</a>
+            <a class="collapse-item" href="{% url 'cadastrar-matriz' %}">Matriz</a>
           </div>
         </div>
       </li>
@@ -99,9 +101,9 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Ração</a>
-            <a class="collapse-item" href="utilities-border.html">Mortalidade</a>
-            <a class="collapse-item" href="utilities-animation.html">Peso</a>
+            <a class="collapse-item" href="{% url 'cadastrar-entrada' %}">Ração</a>
+            <a class="collapse-item" href="">Mortalidade</a>
+            <a class="collapse-item" href="">Peso</a>
           </div>
         </div>
       </li>
@@ -338,7 +340,7 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>

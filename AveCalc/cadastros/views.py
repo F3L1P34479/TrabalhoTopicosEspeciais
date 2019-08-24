@@ -180,7 +180,7 @@ class CidadeUpdate(LoginRequiredMixin, UpdateView):
     model = Cidade
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("listar-cidades")
-    fields = ['nome', 'estado', 'descricao']
+    fields = ['nome', 'estado']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CidadeUpdate, self).get_context_data(*args, **kwargs)
@@ -389,34 +389,34 @@ class CidadeList(LoginRequiredMixin, ListView):
     #informa qual o modelo
     model = Cidade
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_cidade.html"
 
 class PessoaList(LoginRequiredMixin, ListView):
     #informa qual o modelo
     model = Pessoa
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_pessoa.html"
 
 class RacaoList(LoginRequiredMixin, ListView):
     #informa qual o modelo
-    model = Matriz
+    model = Racao
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_racao.html"
 
 class EntradaList(LoginRequiredMixin, ListView):
     #informa qual o modelo
     model = Entrada
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_entrada.html"
 
 class MatrizList(LoginRequiredMixin, ListView):
     #informa qual o modelo
     model = Matriz
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_matriz.html"
 
 class AviarioList(LoginRequiredMixin, ListView):
     #informa qual o modelo
     model = Aviario
     #e o
-    template_name = "cadastros/list_estado.html"
+    template_name = "cadastros/list_aviario.html"
