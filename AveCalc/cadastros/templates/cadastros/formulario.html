@@ -17,10 +17,10 @@
             {% endif %}
 
         </div>
-    </div>            
+    </div>
     <div class="row">
         <div class="col-lg-5">
- 
+
             <form method="post">
                 <!-- Todo formulario tem que ter essa validação -->
                 {% csrf_token %}
@@ -38,30 +38,38 @@
     </div>
 </div>
 {% endblock %}
-
-
-
 {% block rodape %}
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'js/jquery.mask.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        alert("ok");
+        $("#id_data").attr("type", "date");
+        $("#id_hora").attr("type", "time");
+        // $('.time').mask('00:00:00');
+        // $('input[type=date]').mask('00/00/0000');
+        // $('input[type=datetime]').mask('00/00/0000 00:00:00');
+        $('#id_cpf').mask('000.000.000-00');
+        $('#id_rg').mask('000.000.000-0', { reverse: true });
+        var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-00009';
+        },
+            spOptions = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+        $('input[name*=telefone]').mask(SPMaskBehavior, spOptions);
+        $('input[name*=dataChegada]').mask('00/00/0000');
+        $('input[name*=cep]').mask('00000-000');
+
+    });
+</script>
+
+
 
 {% endblock %}
-{% block scripts %}
-    <script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-        var SPMaskBehavior = function (val) {
-        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-        },
-        spOptions = {
-            onKeyPress: function(val, e, field, options) {
-                field.mask(SPMaskBehavior.apply({}, arguments), options);
-            }
-        };
-
-        $('input[id*=telefone_').mask(SPMaskBehavior, spOptions);
-        $('#id_nascimento').mask('00/00/0000');
-        $('#id_cpf').mask('000.000.000-00', {reverse: true});
-    });
-    
-  </script>
-  {% endblock %}

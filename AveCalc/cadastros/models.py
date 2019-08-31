@@ -48,7 +48,7 @@ class Racao(models.Model):
 
 class Entrada(models.Model):
     #Quando você tem uma palavra toda em maiuscula significa que ela é uma constante
-    dataChegada        = models.CharField(max_length=50)
+    dataChegada        = models.DateField()
     peso               = models.PositiveIntegerField(max_length=5, unique = True)
     racao              = models.ForeignKey(Racao, on_delete=models.PROTECT)
 

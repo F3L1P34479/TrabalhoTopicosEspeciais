@@ -120,18 +120,19 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
+          <span>Listas</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item" href="{% url 'listar-estados' %}">Estado</a>
+            <a class="collapse-item" href="{% url 'listar-cidades' %}">Cidade</a>
+            <a class="collapse-item" href="{% url 'listar-aviario' %}">Aviário</a>
+            <a class="collapse-item" href="{% url 'listar-pessoas' %}">Granjeiro</a>
+            <a class="collapse-item" href="{% url 'listar-pessoas' %}">Técnico</a>
+            <a class="collapse-item" href="{% url 'listar-entradas' %}">Entrada</a>
+            <a class="collapse-item" href="{% url 'listar-racao' %}">Ração</a>
+            <a class="collapse-item" href="">Lote</a>
+            <a class="collapse-item" href="{% url 'listar-matrizes' %}">Matriz</a>
           </div>
         </div>
       </li>
@@ -495,6 +496,7 @@
     </div>
   </div>
 -->
+
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -511,9 +513,11 @@
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
   <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+  <script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
+  
+  {% block script %}
 
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
+  {% endblock %}
 
 </body>
 
