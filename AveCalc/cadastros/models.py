@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
+
 # Create your models here.
 #toda classe no django é um model
 class Estado(models.Model):
@@ -33,6 +36,7 @@ class Pessoa(models.Model):
     email       = models.EmailField(max_length=100, help_text="Digite seu e-mail")
     #cidade      = models.ForeignKey(Cidade, on_delete=models.PROTECT)
     fone        = models.CharField(max_length=15, help_text="Digite seu telefone", verbose_name="Telefone")
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nome + ' - ' + self.fone

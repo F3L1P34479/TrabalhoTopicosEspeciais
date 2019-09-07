@@ -17,6 +17,8 @@ from django.views.generic.list import ListView
 #Importa o Mixin para obrigar login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+#Importa o Mixin para criar grupos de usuarios
+from braces.views import GroupRequiredMixin
 
 # Create your views here.
 
@@ -39,7 +41,9 @@ class CurriculoView(TemplateView):
 
 #################INSERIR#####################
 
-class EstadoCreate(LoginRequiredMixin,CreateView):
+class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin,CreateView):
+    # Define o grupo que poderá acessar os templates 
+    group_required = u"Proprietario"
     # Define qual o modelo para essa classe, criando o form
     model = Estado
     # Qual o html que será utilizado?
