@@ -24,6 +24,9 @@ from braces.views import GroupRequiredMixin
 
 # Cria uma classe com herança de TemplateView para exibir um arquivo HTML normal
 # (com o conteúdo dele)
+class LoginView(TemplateView):
+    template_name = "cadastros/login.html"
+
 class PaginaInicialView(TemplateView):
     # nome do arquivo que vai ser utilizado para renderizar esta
     # página/método/classe

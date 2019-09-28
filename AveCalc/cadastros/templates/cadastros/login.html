@@ -1,3 +1,6 @@
+{% load static %}
+<!-- Carrega o plugin do boostrap 4 -->
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,40 +42,20 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">{{titulo}}</h1>
                   </div>
-                  <form class="user" method="POST">
+                  <form method="post">
+                    <!-- Todo formulário tem que ter essa validação -->
                     {% csrf_token %}
-
-
-                    {% bootstrap_form form %}
-                    <!-- {{ form|slice:"0:3" }} -->
-
-                    <!-- <div class="form-group">
-                        <div class="custom-control custom-checkbox small">
-                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                            <label class="custom-control-label" for="customCheck">Lembrar-me</label>
-                        </div>
-                    </div> -->
-
-                    {% buttons %}
-                    <button type="submit" class="btn {{classe}} btn-user btn-block">{{botao}}</button>
-                    {% endbuttons %}
-
-                    <hr>
-                    <a href="index.html" class="btn btn-google btn-user btn-block">
-                        <i class="fab fa-google fa-fw"></i> Login com Google
-                    </a>
-                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                        <i class="fab fa-facebook-f fa-fw"></i> Login com Facebook
-                    </a>
-                    </form>
+                    <!-- Gera o formulário -->
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">
+                        {{ botao }}
+                    </button>
+                </form>
 
                     <div class="text-center">
                         <a class="small" href="forgot-password.html">Esqueceu a senha?</a>
                     </div>
                     
-                    <div class="text-center">
-                        <a class="small" href="{% url 'registro' %}">Criar conta!</a>
-                    </div>
                 </div>
                 {% if messege %}
                 {{ message }}

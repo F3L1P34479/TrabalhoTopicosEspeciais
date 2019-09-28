@@ -14,7 +14,9 @@ urlpatterns = [
             }
     ), name='login'),
 
-    path('sair/', auth_views.LogoutView.as_view(), name="logout"),
+    path('sair/', auth_views.LogoutView.as_view(
+        template_name = 'usuarios/login.html',
+        ), name="logout"),
 
     path('alterar-minha-senha/', auth_views.PasswordChangeView.as_view(
         template_name = 'usuarios/login.html',
