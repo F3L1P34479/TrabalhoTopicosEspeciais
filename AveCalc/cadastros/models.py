@@ -14,7 +14,6 @@ class Estado(models.Model):
     def __str__(self):
         return self.sigla + ' - ' + self.nome
 
-
 class Cidade(models.Model):
     #Quando você tem uma palavra toda em maiuscula significa que ela é uma constante
     nome        = models.CharField(max_length=50)
@@ -29,8 +28,29 @@ class Cidade(models.Model):
     def __str__(self):
         return self.nome + " - " + self.estado.sigla
 
+class Granjeiro(models.Model):
+    nome        = models.CharField(max_length=100, help_text="Digite seu nome completo")
+    #nascimento  = models.DateField(verbose_name="Data de nascimento")
+    email       = models.EmailField(max_length=100, help_text="Digite seu e-mail")
+    #cidade      = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    fone        = models.CharField(max_length=15, help_text="Digite seu telefone", verbose_name="Telefone")
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
-class Pessoa(models.Model):
+    def __str__(self):
+        return self.nome + ' - ' + self.fone
+
+class Tecnico(models.Model):
+    nome        = models.CharField(max_length=100, help_text="Digite seu nome completo")
+    #nascimento  = models.DateField(verbose_name="Data de nascimento")
+    email       = models.EmailField(max_length=100, help_text="Digite seu e-mail")
+    #cidade      = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    fone        = models.CharField(max_length=15, help_text="Digite seu telefone", verbose_name="Telefone")
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.nome + ' - ' + self.fone
+
+class Proprietario(models.Model):
     nome        = models.CharField(max_length=100, help_text="Digite seu nome completo")
     #nascimento  = models.DateField(verbose_name="Data de nascimento")
     email       = models.EmailField(max_length=100, help_text="Digite seu e-mail")

@@ -85,16 +85,46 @@ class CidadeCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class PessoaCreate(LoginRequiredMixin, CreateView):
-    model = Pessoa
+class TecnicoCreate(LoginRequiredMixin, CreateView):
+    model = Tecnico
     template_name = "cadastros/formulario.html"
-    success_url = reverse_lazy("listar-pessoas")
+    success_url = reverse_lazy("listar-tecnicos")
     fields = ['nome', 'email', 'fone']
 
     def get_context_data(self, *args, **kwargs):
-        context = super(PessoaCreate, self).get_context_data(*args, **kwargs)
+        context = super(TecnicoCreate, self).get_context_data(*args, **kwargs)
 
         context['titulo'] = "Cadastro de novas Pessoas"
+        context['botao'] = "Cadastrar"
+        context['classeBotao'] = "btn-primary"
+
+        return context
+
+class GranjeiroCreate(LoginRequiredMixin, CreateView):
+    model = Granjeiro
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("listar-granjeiros")
+    fields = ['nome', 'email', 'fone']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(GranjeiroCreate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Cadastro de Granjeiros"
+        context['botao'] = "Cadastrar"
+        context['classeBotao'] = "btn-primary"
+
+        return context
+
+class ProprietarioCreate(LoginRequiredMixin, CreateView):
+    model = Proprietario
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("listar-proprietarios")
+    fields = ['nome', 'email', 'fone']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProprietarioCreate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Cadastro de Proprietarios"
         context['botao'] = "Cadastrar"
         context['classeBotao'] = "btn-primary"
 
@@ -199,16 +229,46 @@ class CidadeUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 
-class PessoaUpdate(LoginRequiredMixin, UpdateView):
-    model = Pessoa
+class TecnicoUpdate(LoginRequiredMixin, UpdateView):
+    model = Tecnico
     template_name = "cadastros/formulario.html"
-    success_url = reverse_lazy("listar-pessoas")
+    success_url = reverse_lazy("listar-tecnicos")
     fields = ['nome', 'email', 'fone']
 
     def get_context_data(self, *args, **kwargs):
-        context = super(PessoaUpdate, self).get_context_data(*args, **kwargs)
+        context = super(TecnicoUpdate, self).get_context_data(*args, **kwargs)
 
-        context['titulo'] = "Alterar Pessoas"
+        context['titulo'] = "Alterar Tecnicos"
+        context['botao'] = "Cadastrar"
+        context['classeBotao'] = "btn-warning"
+
+        return context
+
+class GranjeiroUpdate(LoginRequiredMixin, UpdateView):
+    model = Granjeiro
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("listar-granjeiros")
+    fields = ['nome', 'email', 'fone']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(GranjeiroUpdate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Alterar Granjeiros"
+        context['botao'] = "Cadastrar"
+        context['classeBotao'] = "btn-warning"
+
+        return context
+
+class ProprietarioUpdate(LoginRequiredMixin, UpdateView):
+    model = Proprietario
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("listar-proprietarios")
+    fields = ['nome', 'email', 'fone']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProprietarioUpdate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Alterar Proprietarios"
         context['botao'] = "Cadastrar"
         context['classeBotao'] = "btn-warning"
 
@@ -313,13 +373,41 @@ class CidadeDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-class PessoaDelete(LoginRequiredMixin, DeleteView):
-    model = Pessoa
+class TecnicoDelete(LoginRequiredMixin, DeleteView):
+    model = Tecnico
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("index")
 
     def get_context_data(self, *args, **kwargs):
-        context = super(PessoaDelete, self).get_context_data(*args, **kwargs)
+        context = super(TecnicoDelete, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Deseja excluir esse registro?"
+        context['botao'] = "Excluir"
+        context['classeBotao'] = "btn-danger"
+
+        return context
+
+class GranjeiroDelete(LoginRequiredMixin, DeleteView):
+    model = Granjeiro
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("index")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(GranjeiroDelete, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Deseja excluir esse registro?"
+        context['botao'] = "Excluir"
+        context['classeBotao'] = "btn-danger"
+
+        return context
+
+class ProprietarioDelete(LoginRequiredMixin, DeleteView):
+    model = Proprietario
+    template_name = "cadastros/formulario.html"
+    success_url = reverse_lazy("index")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProprietarioDelete, self).get_context_data(*args, **kwargs)
 
         context['titulo'] = "Deseja excluir esse registro?"
         context['botao'] = "Excluir"
@@ -398,11 +486,17 @@ class CidadeList(LoginRequiredMixin, ListView):
     #e o
     template_name = "cadastros/list_cidade.html"
 
-class PessoaList(LoginRequiredMixin, ListView):
+class TecnicoList(LoginRequiredMixin, ListView):
     #informa qual o modelo
-    model = Pessoa
+    model = Tecnico
     #e o
-    template_name = "cadastros/list_pessoa.html"
+    template_name = "cadastros/list_tecnico.html"
+
+class GranjeiroList(LoginRequiredMixin, ListView):
+    #informa qual o modelo
+    model = Granjeiro
+    #e o
+    template_name = "cadastros/list_granjeiro.html"
 
 class RacaoList(LoginRequiredMixin, ListView):
     #informa qual o modelo
