@@ -9,7 +9,10 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Importa o TemplateView para criação de páginas simples
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
+
+# importa o DetailView para ver detalhes de Objetos
+from django.views.generic.detail import DetailView
 
 #Importa ListView para gerar as telas com tabelas
 from django.views.generic.list import ListView
@@ -521,3 +524,11 @@ class AviarioList(LoginRequiredMixin, ListView):
     model = Aviario
     #e o
     template_name = "cadastros/list_aviario.html"
+
+#################DETALHAR#####################
+
+class AviarioDetalhes(DetailView):
+    #Define a classe do objeto a ser detalhado
+    model = Aviario
+    #Qual o template para essa tela
+    template_name = "cadastros/detalhe/aviario.html"

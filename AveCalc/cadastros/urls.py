@@ -50,4 +50,7 @@ urlpatterns = [
     path('listar/entrada/', EntradaList.as_view(), name="listar-entradas"),
     path('listar/matriz/', MatrizList.as_view(), name="listar-matrizes"),
     path('listar/aviario/', AviarioList.as_view(), name="listar-aviario"),
+
+    #URLS de detalhes
+    path('ver/aviario/<int:pk>/', AviarioDetalhes.as_view(), name="detalhar-aviario"),
 ]
