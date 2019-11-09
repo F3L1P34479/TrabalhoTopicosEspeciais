@@ -5,17 +5,9 @@ from django.urls import reverse_lazy
 
 urlpatterns = [
     # Aqui vão suas urls
-    path('login/', auth_views.LoginView.as_view(
-        template_name = 'usuarios/login.html',
-        extra_context = {
-            'titulo': 'Autenticação',
-            'botao': 'Entrar',
-            'classe': 'btn-primary'
-            }
-    ), name='login'),
 
     path('sair/', auth_views.LogoutView.as_view(
-        template_name = 'usuarios/login.html',
+        template_name = 'cadastros/base.html',
         ), name="logout"),
 
     path('alterar-minha-senha/', auth_views.PasswordChangeView.as_view(
