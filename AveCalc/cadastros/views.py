@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Importa o TemplateView para criação de páginas simples
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView
 
 # importa o DetailView para ver detalhes de Objetos
 from django.views.generic.detail import DetailView
@@ -22,6 +22,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Importa o Mixin para criar grupos de usuarios
 from braces.views import GroupRequiredMixin
+
+# Método que busca um objeto. Se não existir, da um erro 404
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -48,8 +51,8 @@ class CurriculoView(TemplateView):
 #################INSERIR#####################
 
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin,CreateView):
-    # Define o grupo que poderá acessar os templates 
     group_required = u"Proprietario"
+    
     # Define qual o modelo para essa classe, criando o form
     model = Estado
     # Qual o html que será utilizado?
@@ -94,6 +97,15 @@ class TecnicoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-tecnicos")
     fields = ['nome', 'email', 'fone']
 
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
+
     def get_context_data(self, *args, **kwargs):
         context = super(TecnicoCreate, self).get_context_data(*args, **kwargs)
 
@@ -109,6 +121,15 @@ class GranjeiroCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-granjeiros")
     fields = ['nome', 'email', 'fone']
 
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
+
     def get_context_data(self, *args, **kwargs):
         context = super(GranjeiroCreate, self).get_context_data(*args, **kwargs)
 
@@ -118,11 +139,23 @@ class GranjeiroCreate(LoginRequiredMixin, CreateView):
 
         return context
 
-class ProprietarioCreate(LoginRequiredMixin, CreateView):
+class ProprietarioCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    # Define o grupo que poderá acessar os templates 
+    group_required = u"Proprietario"
+
     model = Proprietario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("listar-proprietarios")
     fields = ['nome', 'email', 'fone']
+
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProprietarioCreate, self).get_context_data(*args, **kwargs)
@@ -154,6 +187,15 @@ class EntradaCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-entradas")
     fields = ['dataChegada', 'peso', 'racao']
 
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
+
     def get_context_data(self, *args, **kwargs):
         context = super(EntradaCreate, self).get_context_data(*args, **kwargs)
 
@@ -169,6 +211,15 @@ class MatrizCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-matrizes")
     fields = ['idade', 'loteMatriz']
 
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
+
     def get_context_data(self, *args, **kwargs):
         context = super(MatrizCreate, self).get_context_data(*args, **kwargs)
 
@@ -178,12 +229,24 @@ class MatrizCreate(LoginRequiredMixin, CreateView):
 
         return context
 
-class AviarioCreate(LoginRequiredMixin, CreateView):
+class AviarioCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    # Define o grupo que poderá acessar os templates 
+    group_required = u"Proprietario"
+
     model = Aviario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("listar-aviario")
     fields = ['identificacao', 'localizacao', 'cidade',
     'largura', 'comprimento', 'capacidadeAlojamento', 'ventilacao']
+
+    def form_valid(self, form):
+
+        # Define o usuário como usuário logado
+        form.instance.usuario = self.request.user
+        
+        url = super().form_valid(form)
+
+        return url
 
     def get_context_data(self, *args, **kwargs):
         context = super(AviarioCreate, self).get_context_data(*args, **kwargs)
@@ -263,6 +326,9 @@ class GranjeiroUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 class ProprietarioUpdate(LoginRequiredMixin, UpdateView):
+    # Define o grupo que poderá acessar os templates 
+    group_required = u"Proprietario"
+
     model = Proprietario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("listar-proprietarios")
@@ -323,11 +389,20 @@ class MatrizUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 class AviarioUpdate(LoginRequiredMixin, UpdateView):
+    # Define o grupo que poderá acessar os templates 
+    group_required = u"Proprietario"
+
     model = Aviario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("listar-aviario")
     fields = ['identificacao', 'localizacao', 'cidade',
     'largura', 'comprimento', 'capacidadeAlojamento', 'ventilacao']
+
+    # Altera a query para buscar o objeto do usuário logado
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(
+            Aviario, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
 
     def get_context_data(self, *args, **kwargs):
         context = super(AviarioUpdate, self).get_context_data(*args, **kwargs)
@@ -405,6 +480,8 @@ class GranjeiroDelete(LoginRequiredMixin, DeleteView):
         return context
 
 class ProprietarioDelete(LoginRequiredMixin, DeleteView):
+    group_required = u"Proprietario"
+
     model = Proprietario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("index")
@@ -461,9 +538,16 @@ class MatrizDelete(LoginRequiredMixin, DeleteView):
         return context
 
 class AviarioDelete(LoginRequiredMixin, DeleteView):
+    group_required = u"Proprietario"
+
     model = Aviario
     template_name = "cadastros/formulario.html"
     success_url = reverse_lazy("index")
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(
+            Aviario, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
 
     def get_context_data(self, *args, **kwargs):
         context = super(AviarioDelete, self).get_context_data(*args, **kwargs)
@@ -524,6 +608,11 @@ class AviarioList(LoginRequiredMixin, ListView):
     model = Aviario
     #e o
     template_name = "cadastros/list_aviario.html"
+
+    def get_queryset(self):
+        # O object_list é o nome padrão para armazenar uma lista de objetos de um ListView
+        self.object_list = Aviario.objects.filter(usuario=self.request.user)
+        return self.object_list 
 
 #################DETALHAR#####################
 

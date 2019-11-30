@@ -1,1 +1,79 @@
-Aviario: {{ object }}
+{% extends 'cadastros/base.html'%}
+
+{% load static %}
+<!-- Carrega o plugin do boostrap 4 -->
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+div class="container py-5">
+    
+    <div class="row mt-5">
+        <div class="col-lg detalhes-aviarios">
+            
+            <h3 class="border-bottom">
+                Detalhes Aviarios
+            </h3>
+
+            <br>
+
+            <span><b>Identificação:</b></span>
+            <span>{{ object.identificacao }}</span>
+            <br>
+
+            <span><b>Localização:</b></span>
+            <span>{{ object.localizacao }}</span>
+            <br>
+
+            <span><b>Cidade:</b></span>
+            <span>{{ object.cidade }}</span>
+            <br>
+
+            <span><b>Largura:</b></span>
+            <span>{{ object.largura }}</span>
+            <br>
+
+            <span><b>Comprimento:</b></span>
+            <span>{{ object.comprimento }}</span>
+            <br>
+
+            <span><b>Capacidade de Alojamento:</b></span>
+            <span>{{ object.capacidadeAlojamento }} - 
+            <br>
+
+            <span><b>Ventilação:</b></span>
+            <span>{{ object.ventilacao }}</span>
+            <br>
+
+            <a href="{% url 'index' %}" class="d-inline-block mt-4">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                Voltar
+            </a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block rodape %}
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'js/jquery.mask.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-00009';
+        },
+            spOptions = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+        $('input[name*=telefone]').mask(SPMaskBehavior, spOptions);
+        $('input[name*=dataChegada]').mask('00/00/0000');
+
+    });
+</script>
+
+{% endblock %}

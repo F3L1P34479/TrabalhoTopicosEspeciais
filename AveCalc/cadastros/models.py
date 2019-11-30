@@ -18,12 +18,6 @@ class Cidade(models.Model):
     #Quando você tem uma palavra toda em maiuscula significa que ela é uma constante
     nome        = models.CharField(max_length=50)
     estado      = models.ForeignKey(Estado, on_delete=models.PROTECT)
-    #descricao   = models.TextField(
-        #blank=True,
-        #null=True,
-        #verbose_name="Descrição",
-        #help_text="Espaço para colocar qualquer informação."
-        #)
 
     def __str__(self):
         return self.nome + " - " + self.estado.sigla
@@ -73,8 +67,9 @@ class Racao(models.Model):
 class Entrada(models.Model):
     #Quando você tem uma palavra toda em maiuscula significa que ela é uma constante
     dataChegada        = models.DateField()
-    peso               = models.PositiveIntegerField(max_length=5, unique = True)
+    peso               = models.PositiveIntegerField()
     racao              = models.ForeignKey(Racao, on_delete=models.PROTECT)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.peso + " - " + self.racao.sigla
@@ -83,6 +78,7 @@ class Matriz(models.Model):
     #nome_do_atributo = models.Tipo(configuração)
     idade   = models.CharField(max_length=2, unique = True)
     loteMatriz    = models.CharField(max_length=50)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     #Como se fosse toString e self = this
     def __str__(self):
@@ -97,6 +93,7 @@ class Aviario(models.Model):
     comprimento            = models.PositiveIntegerField()
     capacidadeAlojamento   = models.PositiveIntegerField(verbose_name = "Capacidade de Alojamento")
     ventilacao             = models.CharField(max_length=50, verbose_name = "Tipo de ventilação")
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     #Como se fosse toString e self = this
     def __str__(self):
